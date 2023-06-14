@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cysharp.Threading.Tasks;
 
 public class PlayerBase : MonoBehaviour
 {
@@ -16,5 +17,5 @@ public class PlayerBase : MonoBehaviour
     void Update()
     {
         
-    }
+    }    
 }
