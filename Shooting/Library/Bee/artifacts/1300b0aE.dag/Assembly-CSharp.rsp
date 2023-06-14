@@ -369,6 +369,7 @@
 "Assets/App/Script/Bullet/BulletHolder.cs"
 "Assets/App/Script/Bullet/BulletHoming.cs"
 "Assets/App/Script/Bullet/BulletNormal.cs"
+"Assets/App/Script/Enemy/EnemyBase.cs"
 "Assets/App/Script/Player/PlayerBase.cs"
 "Assets/App/Script/SampleScene/SampleScene.cs"
 -langversion:9.0

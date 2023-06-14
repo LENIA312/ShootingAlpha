@@ -1,16 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Shooting.Bullet;
 
 namespace Shooting
 {
-    [System.Serializable]
     public class BulletNormal : BulletBase
     {
-
-        public void Setup(float speed)
+        public void Setup(float speed, int attack)
         {
-            base.Setup(speed,1,1);
+            base.Setup(speed, 1,attack);
         }
 
         // Update is called once per frame
@@ -20,8 +19,14 @@ namespace Shooting
 
             transform.position = new Vector2(
                 transform.position.x,
-                transform.position.y + speed
+                transform.position.y + speed * Time.deltaTime
             );
+        }
+
+        // 画面外に出たら消す
+        void OnBecameInvisible()
+        {
+            Destroy(this.gameObject);
         }
     }
 }

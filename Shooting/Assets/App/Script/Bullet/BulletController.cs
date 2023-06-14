@@ -11,7 +11,7 @@ namespace Shooting
     {
         [SerializeField] BulletHolder bulletHolder = default;
 
-        private delegate void SetDelegate(BulletDefine.BulletData data,float spd);
+        private delegate void SetDelegate(BulletDefine.BulletData data,float spd,int atk);
         Dictionary<BulletDefine.BulletType, SetDelegate> delegateMethod;
 
         public void Setup()
@@ -20,7 +20,7 @@ namespace Shooting
 
             foreach (var bullet in bulletHolder.GetBulletData())
             {
-                delegateMethod[bullet.type].Invoke(bullet,0.01f);
+                delegateMethod[bullet.type].Invoke(bullet,5,1);
             }
         }
 
@@ -43,7 +43,7 @@ namespace Shooting
         /*** 弾のセットアップ関数 ***/
 
         // 通常弾
-        void SetupNormal(BulletDefine.BulletData data, float spd)
+        void SetupNormal(BulletDefine.BulletData data, float spd, int atk)
         {
             Debug.Log($"Normal Bullet Setup");
 
@@ -51,20 +51,20 @@ namespace Shooting
              .Subscribe(_ =>
              {
                  var bullets = Instantiate(data.bullet,this.transform);
-                 bullets.GetComponent<BulletNormal>().Setup(spd);
+                 bullets.GetComponent<BulletNormal>().Setup(spd,atk);
              });
         }
 
         // ホーミング弾
-        void SetupHoming(BulletDefine.BulletData data, float spd)
+        void SetupHoming(BulletDefine.BulletData data, float spd, int atk)
         {
             Debug.Log($"Homing Bullet Setup");
            
-            Observable.Interval(TimeSpan.FromSeconds(1))
+            Observable.Interval(TimeSpan.FromSeconds(0.5))
             .Subscribe(_ =>
             {
                 var bullets = Instantiate(data.bullet, this.transform);
-                bullets.GetComponent<BulletHoming>().Setup(spd);
+                bullets.GetComponent<BulletHoming>().Setup(spd, atk);
             });
         }
 

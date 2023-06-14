@@ -4,18 +4,34 @@ using UnityEngine;
 
 namespace Shooting
 {
-    [System.Serializable]
     public class BulletBase : MonoBehaviour
     {
         protected float speed;
         protected int score;
-        protected float interval;
+        protected int attack;
 
-        protected void Setup(float spd, int score, float interval)
+        protected void Setup(float spd, int score, int attack)
         {
             this.speed = spd;
             this.score = score;
-            this.interval = interval;
+            this.attack = attack;
+        }
+
+        void OnTriggerEnter2D(Collider2D collision)
+        {
+            CommonHitAction(collision);
+        }
+
+        protected void CommonHitAction(Collider2D collision)
+        {
+            
+            if (collision.transform.tag == "Enemy")
+            {
+                collision.TryGetComponent(out EnemyBase enemy);
+                enemy.Attack(attack);
+
+                Destroy(this.gameObject);
+            }
         }
     }
 }
